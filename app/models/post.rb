@@ -14,4 +14,20 @@ class Post < ActiveRecord::Base
     end
   end
 
+  def checksum
+    cs = 0
+    @title.each_char { |c| cs = (cs + c.ord) % 256  }
+    cs
+  end
+
+  def uppercase_title
+    @title.upcase
+  end
+
+  def rot128(text)
+    r = ""
+    text.each_char { |c| r += ((c.ord + 128) % 256).chr }
+    r
+  end
+
 end
